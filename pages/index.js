@@ -7,7 +7,7 @@ const Index = ({ props }) => {
     <div className='props.notes-Container'>
       <h1>props.notes</h1>
       <div className='grid wrapper'>
-        {props.notes.map( note => {
+        {/* {props.notes.map( note => {
           return (
             <div key={note._id}>
               <Card>
@@ -29,7 +29,7 @@ const Index = ({ props }) => {
               </Card>
             </div>
           )
-        })}
+        })} */}
       </div>
     </div> 
   )
@@ -41,15 +41,16 @@ const Index = ({ props }) => {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch('https://next-notes-poc.vercel.app/api/notes')
-  const notes = await res.json()
+  // const res = await fetch('https://next-notes-poc.vercel.app/api/notes')
+  // const notes = await res.json()
+  const notes = [{}]
 
   // By returning { props: posts }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
       notes,
-    },
+    }
   }
 }
 
