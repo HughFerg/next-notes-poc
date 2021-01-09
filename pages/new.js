@@ -23,7 +23,7 @@ const NewNote = () => {
 
     const createNote = async () => {
         try {
-            const res = await fetch('https://notes-app-phi.vercel.app/api/notes', {
+            const res = await fetch('${MONGO_URL}', {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",

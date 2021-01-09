@@ -21,7 +21,7 @@ const Note = ({ note }) => {
     const deleteNote = async () => {
         const noteId = router.query.id
         try {
-            const deleted = await fetch(`https://notes-app-phi.vercel.app/api/notes/${noteId}`, {
+            const deleted = await fetch(`${MONGO_URL}/${noteId}`, {
                 method: "Delete"
             });
 
@@ -57,7 +57,7 @@ const Note = ({ note }) => {
 }
 
 Note.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`https://notes-app-phi.vercel.app/api/notes/${id}`)
+    const res = await fetch(`${MONGO_URL}/${id}`)
     const { data } = await res.json()
 
     return { note: data }

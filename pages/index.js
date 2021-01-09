@@ -2,12 +2,12 @@ import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Button, Card } from 'semantic-ui-react'
 
-const Index = ({ notes }) => {
+const Index = ({ props.notes }) => {
   return (
-    <div className='notes-Container'>
-      <h1>Notes</h1>
+    <div className='props.notes-Container'>
+      <h1>props.notes</h1>
       <div className='grid wrapper'>
-        {notes.map( note => {
+        {props.notes.map( note => {
           return (
             <div key={note._id}>
               <Card>
@@ -35,11 +35,22 @@ const Index = ({ notes }) => {
   )
 }
 
-Index.getInitialProps = async () => {
-  const res = await fetch('https://notes-app-phi.vercel.app/api/notes')
-  const { data } = await res.json()
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries. See the "Technical details" section.
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch('${MONGO_URL}/notes')
+  const notes = await res.json()
 
-  return { notes: data }
+  // By returning { props: posts }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      notes,
+    },
+  }
 }
 
 export default Index
