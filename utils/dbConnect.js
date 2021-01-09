@@ -7,7 +7,8 @@ async function dbConnect() {
         return
     }
 
-    const db = await mongoose.connect(process.env.MONGO_URL, {
+    const uri = "mongodb+srv://${PROCESS.ENV.MONGO_USER}:${PROCESS.ENV.MONGO_PASS}@notes.fblcs.mongodb.net/${PROCESS.ENV.MONGO_DEFAULT_DB}?retryWrites=true&w=majority";
+    const db = await mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
