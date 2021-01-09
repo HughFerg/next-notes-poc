@@ -7,7 +7,7 @@ async function dbConnect() {
         return
     }
 
-    const db = await mongoose.connect(process.env.MONGO_URI, {
+    const db = await mongoose.connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -15,5 +15,6 @@ async function dbConnect() {
     connection.isConnection = db.connections[0].readyState
     console.log(connection.isConnection)
 }
+
 
 export default dbConnect

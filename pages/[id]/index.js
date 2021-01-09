@@ -15,16 +15,14 @@ const Note = ({ note }) => {
     }, [isDeleting])
 
     const open = () => setConfirm(true)
-
     const close = () => setConfirm(false)
 
     const deleteNote = async () => {
         const noteId = router.query.id
         try {
-            const deleted = await fetch(`${MONGO_URL}/${noteId}`, {
+            const deleted = await fetch(`https://next-notes-poc.vercel.app/${noteId}`, {
                 method: "Delete"
             });
-
             router.push("/")
         } catch (error) {
             console.log(error)
@@ -57,7 +55,7 @@ const Note = ({ note }) => {
 }
 
 Note.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`${MONGO_URL}/${id}`)
+    const res = await fetch(`https://next-notes-poc.vercel.app/${id}`)
     const { data } = await res.json()
 
     return { note: data }

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Button, Card } from 'semantic-ui-react'
 
-const Index = ({ props.notes }) => {
+const Index = ({ props }) => {
   return (
     <div className='props.notes-Container'>
       <h1>props.notes</h1>
@@ -41,7 +41,7 @@ const Index = ({ props.notes }) => {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch('${MONGO_URL}/notes')
+  const res = await fetch('https://next-notes-poc.vercel.app/api/notes')
   const notes = await res.json()
 
   // By returning { props: posts }, the Blog component

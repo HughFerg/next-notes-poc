@@ -23,7 +23,7 @@ const EditNote = ({ note }) => {
 
     const updateNote = async () => {
         try {
-            const res = await fetch(`${MONGO_URL}/${router.query.id}`, {
+            const res = await fetch(`https://next-notes-poc.vercel.app/api/notes/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -99,7 +99,7 @@ const EditNote = ({ note }) => {
 }
 
 EditNote.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`${MONGO_URL}/${id}`)
+    const res = await fetch(`https://next-notes-poc.vercel.app/api/notes/${id}`)
     const { data } = await res.json()
 
     return { note: data }
