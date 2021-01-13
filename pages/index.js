@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
 import { Button, Card } from 'semantic-ui-react'
+import fetchAllNotesData from '../utils/dbClient'
 
 const Index = ({ props }) => {
   return (
     <div className='props.notes-Container'>
-      <h1>props.notes</h1>
+      <h1>notes</h1>
       <div className='grid wrapper'>
-        {/* {props.notes.map( note => {
+        {props.notes.map(note => {
           return (
             <div key={note._id}>
               <Card>
@@ -29,9 +29,9 @@ const Index = ({ props }) => {
               </Card>
             </div>
           )
-        })} */}
+        })}
       </div>
-    </div> 
+    </div>
   )
 }
 
@@ -39,17 +39,13 @@ const Index = ({ props }) => {
 // It won't be called on client-side, so you can even do
 // direct database queries. See the "Technical details" section.
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  // const res = await fetch('https://next-notes-poc.vercel.app/api/notes')
-  // const notes = await res.json()
-  const notes = [{}]
-
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time
+  const notes = await fetchAllNotesData()
+  if (notes.error != null) {
+    console.log("whoopty")
+  }
   return {
     props: {
-      notes,
+      notes: JSON.parse(JSON.stringify(notes))
     }
   }
 }
