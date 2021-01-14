@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Confirm, Button, Loader } from 'semantic-ui-react'
+import { fetchNoteById } from '../../utils/dbClient'
 
 const Note = ({ note }) => {
     const [confirm, setConfirm] = useState(false)
@@ -55,11 +56,13 @@ const Note = ({ note }) => {
 }
 
 Note.getInitialProps = async ({ query: { id } }) => {
-    // const res = await fetch(`https://next-notes-poc.vercel.app/${id}`)
-    // const { data } = await res.json()
-    const { data } = {}
-
-    return { note: data }
+  const note = await fetchNoteById(id)
+  if (note.error != null) {
+    console.log("whoopty")
+  }
+  return {
+    note: JSON.parse(JSON.stringify(note))
+  }
 }
 
 export default Note

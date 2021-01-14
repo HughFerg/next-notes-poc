@@ -13,4 +13,12 @@ export async function fetchAllNotesData() {
     }
 }
 
-export default fetchAllNotesData
+export async function fetchNoteById(id) {
+    try {
+        const note = await Note.findById(id)
+        return { note: note, error: null }
+    } catch (err) {
+        console.log(err)
+        return { note: [], error: err }
+    }
+}
