@@ -1,4 +1,5 @@
-import Note from '../models/Note'
+import Note from '../server/src/database/models/note.model'
+import mongoose from 'mongoose'
 import dbConnect from '../utils/dbConnect'
 
 dbConnect()
@@ -12,7 +13,6 @@ export async function fetchAllNotesData() {
         return { notes: [], error: err }
     }
 }
-
 export async function fetchNoteById(id) {
     try {
         const note = await Note.findById(id)
