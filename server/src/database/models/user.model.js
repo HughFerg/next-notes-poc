@@ -14,6 +14,13 @@ const UserSchema = new Schema({
     match: [/[a-zA-Z0-9]/, 'is invalid'],
     required: [true, 'cant be blank'],
   },
+  email: {
+    type: String,
+    lowercase: true,
+    unique: true,
+    match: [/[a-zA-Z0-9]/, 'is invalid'],
+    required: false,
+  },
   username: {
     type: String,
     lowercase: true,
@@ -34,9 +41,14 @@ const UserSchema = new Schema({
       ref: 'Posts',
     },
   ],
+  tasks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Tasks',
+    },
+  ],
 });
 
 // create user model
 const userModel = mongoose.model('Users', UserSchema);
-
 module.exports = userModel;

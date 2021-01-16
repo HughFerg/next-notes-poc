@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
-const NoteSchema = new mongoose.Schema({
+const NoteSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Users',
+    },
     title: {
         type: String,
         required: [true, 'Please add a title'],
@@ -8,10 +14,10 @@ const NoteSchema = new mongoose.Schema({
         trim: true,
         maxlength: [40, 'Title cannot be more than 40 characters']
     },
-    description: {
+    content: {
         type: String,
         required: true,
-        maxlength: [200, 'Description cannot be more than 200 characters']
+        // maxlength: [200, 'Description cannot be more than 200 characters']
     }
 })
 
